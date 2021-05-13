@@ -5,7 +5,7 @@ import (
 )
 
 func TestLinear_Predict(t *testing.T) {
-	testData := []DataPoint {
+	testData := []DataPoint{
 		{3, 30},
 		{8, 57},
 		{9, 64},

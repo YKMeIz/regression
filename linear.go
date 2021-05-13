@@ -2,21 +2,25 @@ package regression
 
 import "math"
 
+// Linear represents a basic linear regression model.
 type Linear struct {
 	DataSet
 	w0, w1 float64
 }
 
+// DataSet represents a set of data for regression model.
 type DataSet struct {
 	DataPoints []DataPoint
 	sumX, sumY float64
 }
 
+// DataPoint represents (X, Y).
 type DataPoint struct {
 	X, Y float64
 }
 
-func (ds *DataSet) Add(dp ...DataPoint)  {
+// Add appends data point (X, Y) to dataset.
+func (ds *DataSet) Add(dp ...DataPoint) {
 	for _, v := range dp {
 		ds.sumX += v.X
 		ds.sumY += v.Y
@@ -28,6 +32,7 @@ func (ds *DataSet) avgXY() (float64, float64) {
 	return ds.sumX / float64(len(ds.DataPoints)), ds.sumY / float64(len(ds.DataPoints))
 }
 
+// Train creates a basic linear regression model.
 func (l *Linear) Train() {
 	avgX, avgY := l.avgXY()
 
@@ -35,13 +40,14 @@ func (l *Linear) Train() {
 
 	for _, v := range l.DataPoints {
 		a += (v.X - avgX) * (v.Y - avgY)
-		b += math.Pow(v.X - avgX, 2)
+		b += math.Pow(v.X-avgX, 2)
 	}
 
 	l.w1 = a / b
 	l.w0 = avgY - (l.w1 * avgX)
 }
 
+// Predict gives value Y on given position X.
 func (l *Linear) Predict(x float64) float64 {
 	return l.w0 + (l.w1 * x)
 }
