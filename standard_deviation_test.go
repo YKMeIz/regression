@@ -2,7 +2,7 @@ package regression
 
 import "testing"
 
-func TestSD(t *testing.T) {
+func TestSDXY(t *testing.T) {
 	testData := []DataPoint{
 		{1, 2},
 		{2, 4},
